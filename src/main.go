@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	fmt.Printf("listening on")
+	fmt.Printf("listening on here")
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "This is a website server by a Go HTTP server.")
@@ -41,5 +41,5 @@ func main() {
 		fmt.Fprintf(w, "Hello World! I'm a HTTP server!")
 	})
 
-	http.ListenAndServe(":3001", nil)
+	http.ListenAndServe(":3000", nil)
 }
