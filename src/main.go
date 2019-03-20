@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -19,7 +18,7 @@ func main() {
 	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%s %s %s\n", r.RemoteAddr, r.Method, r.URL)
 
-		resp, err := http.Get("https://www.independent.ie")
+		resp, err := http.Get("https://search-movies-cu4klqobhcz7knhi47dwylb3yu.eu-west-1.es.amazonaws.com/movies/_search?q=burton")
 		if err != nil {
 			// handle error
 			fmt.Fprintf(w, "handle error")
@@ -34,9 +33,9 @@ func main() {
 
 		//log.Println(string(body))
 
-		var result map[string]interface{}
-		json.NewDecoder(resp.Body).Decode(&result)
-		log.Println(result)
+		//var result map[string]interface{}
+		//json.NewDecoder(resp.Body).Decode(&result)
+		//log.Println(result)
 
 		var text, error = ioutil.ReadAll(resp.Body)
 
