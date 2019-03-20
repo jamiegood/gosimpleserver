@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -18,7 +19,7 @@ func main() {
 	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("%s %s %s\n", r.RemoteAddr, r.Method, r.URL)
 
-		resp, err := http.Get("https://httpbin.org/get")
+		resp, err := http.Get("https://www.independent.ie")
 		if err != nil {
 			// handle error
 			fmt.Fprintf(w, "handle error")
@@ -36,9 +37,15 @@ func main() {
 		var result map[string]interface{}
 		json.NewDecoder(resp.Body).Decode(&result)
 		log.Println(result)
+
+		var text, error = ioutil.ReadAll(resp.Body)
+
+		log.Println(string(text))
+		log.Println(error)
+
 		//
 		defer resp.Body.Close()
-		fmt.Fprintf(w, "Hello World! I'm a HTTP server!")
+		fmt.Fprintf(w, string(text))
 	})
 
 	http.ListenAndServe(":3000", nil)
